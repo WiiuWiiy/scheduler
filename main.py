@@ -3,15 +3,14 @@ import asyncio
 import logging
 
 # Зависимости
-
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
 # Зависимости от созданных файлов
-
-from start_handlers import router as start_router
+from Routers import router as start_router
 from loader import gettoken, getid
+from scheduler import scheduler
 
 logging.basicConfig(
     level=logging.INFO,
@@ -31,11 +30,13 @@ async def on_startup(bot: Bot) -> None:
 
 
 async def main():
+    scheduler.start()
     bot = Bot(
         token=TOKEN,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML)
     )
     await bot.delete_webhook(drop_pending_updates=True)
+    dp.include_router(start_router)
     await dp.start_polling(bot)
 
 
