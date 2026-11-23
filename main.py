@@ -10,7 +10,7 @@ from aiogram.enums import ParseMode
 # Зависимости от созданных файлов
 from Routers import router as start_router
 from loader import gettoken, getid
-from scheduler import scheduler
+from timer import scheduler
 
 logging.basicConfig(
     level=logging.INFO,
